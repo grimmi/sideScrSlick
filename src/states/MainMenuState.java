@@ -17,10 +17,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import util.constants;
+import util.Keyboard;
+import util.debug;
 
 public class MainMenuState extends BasicGameState{
 
-	boolean debug;
+	boolean debugOn;
+	debug dbg;
 	
 	constants c;
 	
@@ -29,10 +32,13 @@ public class MainMenuState extends BasicGameState{
 	int auswahl;
 	
 	Input in;
+	Keyboard kb;
+	
 	float mouseX;
 	float mouseY;
 	
-	int lastKeyPressed;
+	int key;
+	String keyName;
 	
 	
 	
@@ -46,8 +52,11 @@ public class MainMenuState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		in = gc.getInput();
-		lastKeyPressed = 0;
-		debug = true;
+		kb = new Keyboard(gc);
+		key = 0;
+		keyName = "";
+		dbg = new debug(gc);
+		debugOn = false;
 		dadha = new AngelCodeFont("/res/font/dadha.fnt","/res/font/dadha_00.png");
 		cNew = new AngelCodeFont("/res/font/courierNew.fnt","/res/font/courierNew_0.png");
 	}
@@ -57,28 +66,20 @@ public class MainMenuState extends BasicGameState{
 			throws SlickException {
 		mouseX = in.getMouseX();
 		mouseY = in.getMouseY();
+		kb.update();
+		if(key == Input.KEY_ENTER){
+			sbg.enterState(sideScrSlick.GAMEPLAYSTATE);
+		}
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		g.resetTransform();
-		g.setFont(dadha);
-		g.drawString("Hauptmenü!", 400, 300);
-		
-		if(debug)showDebug(g);
+		if(debugOn)dbg.showDebug(g);
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return gameStateID;
-	}	
-	
-	public void showDebug(Graphics g){
-		g.setFont(cNew);
-		g.scale(0.75f, 0.75f);
-		String mouseDebug = (int)mouseX+" | "+(int)mouseY;
-		cNew.drawString(c.WINDOW_X+160, 10, mouseDebug, Color.white);
-	}
+	}		
 }

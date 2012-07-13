@@ -1,5 +1,7 @@
 package states;
 
+import logic.GameplayState;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -10,6 +12,7 @@ import util.constants;
 public class sideScrSlick extends StateBasedGame {
 
 	public static final int MAINMENUSTATE	          	= 0;
+	public static final int GAMEPLAYSTATE				= 1;
     
 	static constants c;
 	
@@ -17,6 +20,7 @@ public class sideScrSlick extends StateBasedGame {
 	{
 		super("Sidescroller Slick");
 		this.addState(new MainMenuState(MAINMENUSTATE));
+		this.addState(new GameplayState(GAMEPLAYSTATE));
         this.enterState(MAINMENUSTATE);
 	}
 	
@@ -32,6 +36,7 @@ public class sideScrSlick extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer gameContainer) throws SlickException {
 		this.getState(MAINMENUSTATE).init(gameContainer, this);	
+		this.getState(GAMEPLAYSTATE).init(gameContainer, this);
 	}
 
 
