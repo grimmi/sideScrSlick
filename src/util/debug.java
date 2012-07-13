@@ -13,17 +13,17 @@ public class debug {
 	private Font dadha;
 	private Font cNew;
 	
-	constants c;
+	co c;
 	
 	Input in;
-	Keyboard kb;
+	keyboard kb;
 	
 	float mouseX,mouseY;
 	
 	public debug(GameContainer gc) throws SlickException{
-		c = new constants();
+		c = new co();
 		in = gc.getInput();
-		kb = new Keyboard(gc);
+		kb = new keyboard(gc);
 		dadha = new AngelCodeFont("/res/font/dadha.fnt","/res/font/dadha_00.png");
 		cNew = new AngelCodeFont("/res/font/courierNew.fnt","/res/font/courierNew_0.png");
 	}

@@ -16,8 +16,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import util.constants;
-import util.Keyboard;
+import util.co;
+import util.keyboard;
 import util.debug;
 
 public class MainMenuState extends BasicGameState{
@@ -25,14 +25,14 @@ public class MainMenuState extends BasicGameState{
 	boolean debugOn;
 	debug dbg;
 	
-	constants c;
+	co c;
 	
 	Font dadha;
 	Font cNew;
 	int auswahl;
 	
 	Input in;
-	Keyboard kb;
+	keyboard kb;
 	
 	float mouseX;
 	float mouseY;
@@ -52,11 +52,9 @@ public class MainMenuState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		in = gc.getInput();
-		kb = new Keyboard(gc);
-		key = 0;
-		keyName = "";
+		kb = new keyboard(gc);
 		dbg = new debug(gc);
-		debugOn = false;
+		debugOn = true;
 		dadha = new AngelCodeFont("/res/font/dadha.fnt","/res/font/dadha_00.png");
 		cNew = new AngelCodeFont("/res/font/courierNew.fnt","/res/font/courierNew_0.png");
 	}
@@ -67,7 +65,7 @@ public class MainMenuState extends BasicGameState{
 		mouseX = in.getMouseX();
 		mouseY = in.getMouseY();
 		kb.update();
-		if(key == Input.KEY_ENTER){
+		if(kb.getKey() == Input.KEY_ENTER){
 			sbg.enterState(sideScrSlick.GAMEPLAYSTATE);
 		}
 	}

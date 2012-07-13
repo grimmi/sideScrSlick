@@ -3,13 +3,13 @@ package util;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
-public class Keyboard {
+public class keyboard {
 
 	private static Input in;
 	private static int key;
 	private static String keyName;
 	
-	public Keyboard(GameContainer gc){
+	public keyboard(GameContainer gc){
 		in = gc.getInput();
 		setKey(148);		
 	}

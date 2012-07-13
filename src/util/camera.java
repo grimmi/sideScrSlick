@@ -7,10 +7,10 @@ public class camera {
 	private float x,y;
 	private float camWidth, camHeight;
 	
-	private constants c;
+	private co c;
 	
 	public camera(){
-		c = new constants();
+		c = new co();
 		camWidth = c.WINDOW_X;
 		camHeight = c.WINDOW_Y;
 		x = 0;

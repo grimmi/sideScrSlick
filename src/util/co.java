@@ -2,7 +2,7 @@ package util;
 
 import org.newdawn.slick.Input;
 
-public class constants {
+public class co {
 
 	public static int WINDOW_X = 1024;
 	public static int WINDOW_Y = 768;
