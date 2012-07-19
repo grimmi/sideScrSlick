@@ -12,4 +12,19 @@ public class co {
 	public static int MOVE_UP = Input.KEY_UP;
 	public static int MOVE_DOWN = Input.KEY_DOWN;
 
+	
+	/*
+	 * 	8 1 2 
+	 *  7 0 3
+	 *  6 5 4
+	 */
+	public static int DIR_UP = 1;
+	public static int DIR_UP_RIGHT = 2;	
+	public static int DIR_RIGHT = 3;
+	public static int DIR_DOWN_RIGHT = 4;
+	public static int DIR_DOWN = 5;
+	public static int DIR_DOWN_LEFT = 6;
+	public static int DIR_LEFT = 7;
+	public static int DIR_UP_LEFT = 8;
+	public static int DIR_NODIR = 0;
 }

@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import entities.player;
+
 public class debug {
 
 	private Font dadha;
@@ -39,6 +41,11 @@ public class debug {
 		cNew.drawString(c.WINDOW_X+160, 10, mouseDebug, Color.white);
 		cNew.drawString(c.WINDOW_X+160, 30, keyPressed, Color.white);
 		cNew.drawString(c.WINDOW_X+160, 50, kb.getKeyName(), Color.white);
+	}
+	
+	public void showDebug(Graphics g, player p){
+		showDebug(g);
+		cNew.drawString(c.WINDOW_X+160, 70, "p.dir: "+p.getDir(), Color.white);
 	}
 
 }

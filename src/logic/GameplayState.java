@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -15,6 +16,7 @@ import util.images;
 import util.keyboard;
 
 import entities.block;
+import entities.player;
 import entities.umgebung;
 
 public class GameplayState extends BasicGameState {
@@ -24,7 +26,6 @@ public class GameplayState extends BasicGameState {
 	private boolean debugOn;
 	private debug dbg;
 	
-	private keyboard kb;
 	private Input in;
 	
 	private co c;
@@ -32,7 +33,7 @@ public class GameplayState extends BasicGameState {
 	
 	umgebung u;
 	
-	block spieler;
+	player p;
 	
 	public GameplayState(int id) {
 		gameStateID = id;
@@ -44,13 +45,9 @@ public class GameplayState extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		debugOn = true;
-		dbg = new debug(gc);
-		c = new co();
-		u = new umgebung();
-		i = new images();
-		in = gc.getInput();
-		kb = new keyboard(gc);
+		reset(gc);
+		p.setImage(i.blueBlock);
+		p.setSpeed(10f);
 		float bW = i.blueBlock.getWidth();
 		float bH = i.blueBlock.getHeight();
 		float gW = 0f;
@@ -60,36 +57,65 @@ public class GameplayState extends BasicGameState {
 			a++;
 			gW += bW;
 		}	
-		spieler = new block(200, 200);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString("GameplayState", 300, 300);
 		u.draw(g);
-		spieler.draw(g);
-		if(debugOn)dbg.showDebug(g);
+		p.draw(g);
+		if(debugOn)dbg.showDebug(g,p);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		kb.update();
-		steuerung();
+		steuerung(gc);
+		p.move();
 	}
 	
-	public void steuerung(){
-		if(in.isKeyDown(c.MOVE_RIGHT) && spieler.getX() < c.WINDOW_X-(spieler.getImage().getWidth())){
-			spieler.setX(spieler.getX()+3);
+	public void steuerung(GameContainer gc){
+		if(in.isKeyDown(co.MOVE_UP)){
+			if(in.isKeyDown(co.MOVE_RIGHT)){
+				p.setDir(co.DIR_UP_RIGHT);
+			}
+			else if(in.isKeyDown(co.MOVE_LEFT)){
+				p.setDir(co.DIR_UP_LEFT);
+			}
+			else{
+				p.setDir(co.DIR_UP);
+			}
 		}
-		if(in.isKeyDown(c.MOVE_LEFT) && spieler.getX() > -1){
-			spieler.setX(spieler.getX()-3);
+		else if(in.isKeyDown(co.MOVE_RIGHT)){
+			p.setDir(co.DIR_RIGHT);
 		}
-		if(in.isKeyDown(c.MOVE_UP) && spieler.getY() > -1){
-			spieler.setY(spieler.getY()-3);
+		else if(in.isKeyDown(co.MOVE_DOWN)){
+			if(in.isKeyDown(co.MOVE_RIGHT)){
+				p.setDir(co.DIR_DOWN_RIGHT);
+			}
+			else if(in.isKeyDown(co.MOVE_LEFT)){
+				p.setDir(co.DIR_DOWN_LEFT);
+			}
+			else{
+				p.setDir(co.DIR_DOWN);
+			}
 		}
-		if(in.isKeyDown(c.MOVE_DOWN) && spieler.getY() < (c.WINDOW_Y-(spieler.getImage().getHeight()*2))){
-			spieler.setY(spieler.getY()+3);
+		else if(in.isKeyDown(co.MOVE_LEFT)){
+			p.setDir(co.DIR_LEFT);
 		}
+		else{
+			p.setDir(0);
+		}
+		
+	}
+	
+	public void reset(GameContainer gc) throws SlickException{
+		debugOn = true;
+		dbg = new debug(gc);
+		c = new co();
+		u = new umgebung();
+		i = new images();
+		in = gc.getInput();
+		p = new player();
 	}
 
 }
