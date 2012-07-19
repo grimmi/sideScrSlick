@@ -85,10 +85,18 @@ public class GameplayState extends BasicGameState {
 				p.setDir(co.DIR_UP);
 			}
 		}
-		else if(in.isKeyDown(co.MOVE_RIGHT)){
-			p.setDir(co.DIR_RIGHT);
+		if(in.isKeyDown(co.MOVE_RIGHT)){
+			if(in.isKeyDown(co.MOVE_UP)){
+				p.setDir(co.DIR_UP_RIGHT);
+			}
+			else if(in.isKeyDown(co.MOVE_DOWN)){
+				p.setDir(co.DIR_DOWN_RIGHT);
+			}
+			else{
+				p.setDir(co.DIR_RIGHT);				
+			}
 		}
-		else if(in.isKeyDown(co.MOVE_DOWN)){
+		if(in.isKeyDown(co.MOVE_DOWN)){
 			if(in.isKeyDown(co.MOVE_RIGHT)){
 				p.setDir(co.DIR_DOWN_RIGHT);
 			}
@@ -99,10 +107,18 @@ public class GameplayState extends BasicGameState {
 				p.setDir(co.DIR_DOWN);
 			}
 		}
-		else if(in.isKeyDown(co.MOVE_LEFT)){
-			p.setDir(co.DIR_LEFT);
+		if(in.isKeyDown(co.MOVE_LEFT)){
+			if(in.isKeyDown(co.MOVE_UP)){
+				p.setDir(co.DIR_UP_LEFT);
+			}
+			else if(in.isKeyDown(co.MOVE_DOWN)){
+				p.setDir(co.DIR_DOWN_LEFT);
+			}
+			else{
+				p.setDir(co.DIR_LEFT);				
+			}
 		}
-		else{
+		if(!in.isKeyDown(co.MOVE_UP) && !in.isKeyDown(co.MOVE_DOWN) && !in.isKeyDown(co.MOVE_LEFT) && !in.isKeyDown(co.MOVE_RIGHT)){
 			p.setDir(0);
 		}
 		
