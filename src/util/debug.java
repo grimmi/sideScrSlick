@@ -46,6 +46,8 @@ public class debug {
 	public void showDebug(Graphics g, player p){
 		showDebug(g);
 		cNew.drawString(c.WINDOW_X+160, 70, "p.dir: "+p.getDir(), Color.white);
+		cNew.drawString(c.WINDOW_X, 110, "pX, pY: "+p.getX()+" | "+p.getY(), Color.white);
+		cNew.drawString(c.WINDOW_X-100, 130, "jump: "+p.isJump()+" | fall: "+p.isFall());
 	}
 
 }

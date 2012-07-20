@@ -71,6 +71,7 @@ public class GameplayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		steuerung(gc);
 		p.move();
+		p.checkCollision(u);
 	}
 	
 	public void steuerung(GameContainer gc){
@@ -118,6 +119,9 @@ public class GameplayState extends BasicGameState {
 				p.setDir(co.DIR_LEFT);				
 			}
 		}
+		if(in.isKeyPressed(co.MOVE_JUMP)){
+			p.jump();
+		}
 		if(!in.isKeyDown(co.MOVE_UP) && !in.isKeyDown(co.MOVE_DOWN) && !in.isKeyDown(co.MOVE_LEFT) && !in.isKeyDown(co.MOVE_RIGHT)){
 			p.setDir(0);
 		}
@@ -132,6 +136,7 @@ public class GameplayState extends BasicGameState {
 		i = new images();
 		in = gc.getInput();
 		p = new player();
+		p.setPos(100, c.WINDOW_Y-100);
 	}
 
 }

@@ -11,6 +11,7 @@ public class co {
 	public static int MOVE_RIGHT = Input.KEY_RIGHT;
 	public static int MOVE_UP = Input.KEY_UP;
 	public static int MOVE_DOWN = Input.KEY_DOWN;
+	public static int MOVE_JUMP = Input.KEY_SPACE;
 
 	
 	/*
