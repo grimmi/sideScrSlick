@@ -15,6 +15,7 @@ public class mob extends objekt {
 	private float maxJumpSpeed = 10;
 	private boolean verticalAllowed;
 	private float baseLine = co.WINDOW_Y-100;
+	private float jumpDiff = 0.5f;
 	
 	public mob(){
 		super();
@@ -32,25 +33,18 @@ public class mob extends objekt {
 	 */		  
 	public void move(){
 		if(isJump()){
-			if(isFall()){
+			setY(getY()-getJumpSpeed());
+			setJumpSpeed(getJumpSpeed()-jumpDiff);
+			if(getJumpSpeed() == 0){
 				setJump(false);
-			}
-			if(getJumpSpeed() > 0 && getY() >= baseLine){
-				setY(getY()-getJumpSpeed());
-				setJumpSpeed(getJumpSpeed()-0.5f);
-			}
-			if(getJumpSpeed() == 0 && getY() > baseLine){
-				setFall(true);
 				setJumpSpeed(getMaxJumpSpeed());
+				setFall(true);
 			}
 		}
 		if(isFall()){
-			if(getJumpSpeed() > 0 && getY() >= baseLine){
-				setY(getY()+getJumpSpeed());
-				setJumpSpeed(getJumpSpeed()-0.5f);
-			}
-			if(getJumpSpeed() == 0 || getY() <= baseLine){
-				setJump(false);
+			setY(getY()+getJumpSpeed());
+			setJumpSpeed(getJumpSpeed()-jumpDiff);
+			if(getJumpSpeed() == 0){
 				setFall(false);
 			}
 		}

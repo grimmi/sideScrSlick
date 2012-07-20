@@ -48,6 +48,7 @@ public class debug {
 		cNew.drawString(c.WINDOW_X+160, 70, "p.dir: "+p.getDir(), Color.white);
 		cNew.drawString(c.WINDOW_X, 110, "pX, pY: "+p.getX()+" | "+p.getY(), Color.white);
 		cNew.drawString(c.WINDOW_X-100, 130, "jump: "+p.isJump()+" | fall: "+p.isFall());
+		cNew.drawString(c.WINDOW_X+160, 150, "jumpSpeed: "+p.getJumpSpeed());
 	}
 
 }
