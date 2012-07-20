@@ -61,7 +61,6 @@ public class GameplayState extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawString("GameplayState", 300, 300);
 		u.draw(g);
 		p.draw(g);
 		if(debugOn)dbg.showDebug(g,p);
@@ -75,55 +74,17 @@ public class GameplayState extends BasicGameState {
 	}
 	
 	public void steuerung(GameContainer gc){
-		if(in.isKeyDown(co.MOVE_UP)){
-			if(in.isKeyDown(co.MOVE_RIGHT)){
-				p.setDir(co.DIR_UP_RIGHT);
-			}
-			else if(in.isKeyDown(co.MOVE_LEFT)){
-				p.setDir(co.DIR_UP_LEFT);
-			}
-			else{
-				p.setDir(co.DIR_UP);
-			}
+		if(in.isKeyPressed(co.MOVE_LEFT)){
+			p.setDir(co.DIR_LEFT);
 		}
-		if(in.isKeyDown(co.MOVE_RIGHT)){
-			if(in.isKeyDown(co.MOVE_UP)){
-				p.setDir(co.DIR_UP_RIGHT);
-			}
-			else if(in.isKeyDown(co.MOVE_DOWN)){
-				p.setDir(co.DIR_DOWN_RIGHT);
-			}
-			else{
-				p.setDir(co.DIR_RIGHT);				
-			}
-		}
-		if(in.isKeyDown(co.MOVE_DOWN)){
-			if(in.isKeyDown(co.MOVE_RIGHT)){
-				p.setDir(co.DIR_DOWN_RIGHT);
-			}
-			else if(in.isKeyDown(co.MOVE_LEFT)){
-				p.setDir(co.DIR_DOWN_LEFT);
-			}
-			else{
-				p.setDir(co.DIR_DOWN);
-			}
-		}
-		if(in.isKeyDown(co.MOVE_LEFT)){
-			if(in.isKeyDown(co.MOVE_UP)){
-				p.setDir(co.DIR_UP_LEFT);
-			}
-			else if(in.isKeyDown(co.MOVE_DOWN)){
-				p.setDir(co.DIR_DOWN_LEFT);
-			}
-			else{
-				p.setDir(co.DIR_LEFT);				
-			}
+		if(in.isKeyPressed(co.MOVE_RIGHT)){
+			p.setDir(co.DIR_RIGHT);
 		}
 		if(in.isKeyPressed(co.MOVE_JUMP)){
 			p.jump();
 		}
-		if(!in.isKeyDown(co.MOVE_UP) && !in.isKeyDown(co.MOVE_DOWN) && !in.isKeyDown(co.MOVE_LEFT) && !in.isKeyDown(co.MOVE_RIGHT)){
-			p.setDir(0);
+		if(!in.isKeyDown(co.MOVE_LEFT) && !in.isKeyDown(co.MOVE_RIGHT)){
+			p.setDir(co.DIR_NODIR);
 		}
 		
 	}
