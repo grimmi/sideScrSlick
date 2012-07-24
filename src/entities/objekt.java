@@ -71,7 +71,25 @@ public class objekt {
 	}
 	
 	public void setY(float y){
-		this.y = y;
+		if(y < getY()){
+			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_UP)){
+				this.y = getY();
+			}
+			else{
+				this.y = y;
+			}
+		}
+		else if(y > getY()){
+			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_DOWN)){
+				this.y = getY();
+			}
+			else{
+				this.y = y;
+			}
+		}
+		else{
+			this.y = y;
+		}
 	}
 	
 	public float getY(){
