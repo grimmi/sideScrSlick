@@ -10,8 +10,8 @@ public class player extends mob{
 	private String name = "Bob";
 	private fonts f;
 	
-	public player() throws SlickException{
-		super();
+	public player(environment u) throws SlickException{
+		super(u);
 		f = new fonts();
 	}
 	

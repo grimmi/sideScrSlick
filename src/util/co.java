@@ -28,4 +28,9 @@ public class co {
 	public static int DIR_LEFT = 7;
 	public static int DIR_UP_LEFT = 8;
 	public static int DIR_NODIR = 0;
+	
+	public static String COLLISION_UP = "up";
+	public static String COLLISION_DOWN = "down";
+	public static String COLLISION_LEFT = "left";
+	public static String COLLISION_RIGHT = "right";
 }

@@ -14,8 +14,8 @@ public class block extends objekt{
 	
 	private images i;
 	
-	public block() throws SlickException{
-		super();
+	public block(environment u) throws SlickException{
+		super(u);
 		i = new images();
 		super.setImage(i.blueBlock);
 		height = 0;
@@ -24,7 +24,7 @@ public class block extends objekt{
 	}
 	
 	public block(float x, float y) throws SlickException{
-		this();
+		this(new environment());
 		setX(x);
 		setY(y);
 	}

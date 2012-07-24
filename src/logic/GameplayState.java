@@ -17,7 +17,7 @@ import util.keyboard;
 
 import entities.block;
 import entities.player;
-import entities.umgebung;
+import entities.environment;
 
 public class GameplayState extends BasicGameState {
 
@@ -31,7 +31,7 @@ public class GameplayState extends BasicGameState {
 	private co c;
 	private images i;
 	
-	umgebung u;
+	environment gameplayEnvironment;
 	
 	player p;
 	
@@ -52,25 +52,28 @@ public class GameplayState extends BasicGameState {
 		float bH = i.blueBlock.getHeight();
 		float gW = 0f;
 		int a = 0;
+		/*
 		while(gW < c.WINDOW_X){
-			u.addObjekt(new block((bW*a),c.WINDOW_Y-(bH+0)));
+			gameplayEnvironment.addObjekt(new block((bW*a),c.WINDOW_Y-(bH+0)));
 			a++;
 			gW += bW;
-		}	
+		}
+		*/
+		gameplayEnvironment.addObjekt(new block(p.getX()+200,p.getY()));
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		u.draw(g);
+		gameplayEnvironment.draw(g);
 		p.draw(g);
-		if(debugOn)dbg.showDebug(g,p);
+		if(debugOn)dbg.showDebug(g,p,gameplayEnvironment);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		steuerung(gc);
 		p.move();
-		p.checkCollision(u);
+		p.getEnvironmentCollisionList(gameplayEnvironment);
 	}
 	
 	public void steuerung(GameContainer gc){
@@ -93,10 +96,10 @@ public class GameplayState extends BasicGameState {
 		debugOn = true;
 		dbg = new debug(gc);
 		c = new co();
-		u = new umgebung();
+		gameplayEnvironment = new environment();
 		i = new images();
 		in = gc.getInput();
-		p = new player();
+		p = new player(gameplayEnvironment);
 		p.setPos(100, c.WINDOW_Y-100);
 	}
 

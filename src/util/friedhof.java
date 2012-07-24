@@ -48,6 +48,23 @@ public class friedhof {
 			else{
 				p.setDir(co.DIR_LEFT);				
 			}
+	
+	
+		// KOLLISION OBEN / UNTEN
+		 * 
+				/*
+				if(m.getY() < o.getY()+o.getHeight() && m.getY() > o.getY()){
+					if(!collisions.contains(co.COLLISION_UP)){
+						collisions.add(co.COLLISION_UP);
+						System.out.println("Kollision oben!");
+					}
+				}
+				if(m.getY() < o.getY() && m.getY()+m.getHeight() > o.getY()){
+					if(!collisions.contains(co.COLLISION_DOWN)){
+						collisions.add(co.COLLISION_DOWN);
+						System.out.println("Kollision unten!");
+					}
+				}
 	 */
 
 

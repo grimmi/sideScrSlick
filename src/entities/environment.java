@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
 
-public class umgebung {
+public class environment {
 
 	private ArrayList<objekt> objekte;
 
-	public umgebung(){
+	public environment(){
 		objekte = new ArrayList<objekt>();
 	}
 	
-	public ArrayList<objekt> getUmgebung(){
+	public ArrayList<objekt> getEnvironment(){
 		return objekte;
 	}
 	

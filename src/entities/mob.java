@@ -17,8 +17,8 @@ public class mob extends objekt {
 	private float baseLine = co.WINDOW_Y-100;
 	private float jumpDiff = 0.5f;
 	
-	public mob(){
-		super();
+	public mob(environment u){
+		super(u);
 		dir = 0;
 		setAllowedDirs(new int[8]);
 		speed = 0;
@@ -49,32 +49,32 @@ public class mob extends objekt {
 			}
 		}
 		switch(getDir()){
-			case 1: //setY(getY()-speed);
+			case 1: setY(getY()-speed);
 					setX(getX());
 					break;
-			case 2: //setY(getY()-(speed/2));
+			case 2: setY(getY()-(speed/2));
 					setX(getX()+(speed/2));
 					break;
-			case 3: //setY(getY());
+			case 3: setY(getY());
 					setX(getX()+speed);
 					break;
-			case 4: //setY(getY()+(speed/2));
+			case 4: setY(getY()+(speed/2));
 					setX(getX()+(speed/2));
 					break;
-			case 5: //setY(getY()+speed);
+			case 5: setY(getY()+speed);
 					setX(getX());
 					break;
-			case 6:	//setY(getY()+(speed/2));
+			case 6:	setY(getY()+(speed/2));
 					setX(getX()-(speed/2));
 					break;
-			case 7: //setY(getY());
+			case 7: setY(getY());
 					setX(getX()-speed);
 					break;
-			case 8: //setY(getY()-(speed/2));
+			case 8: setY(getY()-(speed/2));
 					setX(getX()-(speed/2));
 					break;
-			case 0: setY(getY());
-					setX(getX());
+			case 0: //setY(getY());
+					//setX(getX());
 					break;
 		}
 	}
@@ -176,7 +176,7 @@ public class mob extends objekt {
 		return jumpSpeed;
 	}
 	
-	public void checkCollision(umgebung u){
+	public void checkCollision(environment u){
 		// umgebungskollisionen
 	}
 

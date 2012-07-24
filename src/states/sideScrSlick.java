@@ -28,7 +28,7 @@ public class sideScrSlick extends StateBasedGame {
 	{ 
 		AppGameContainer sideScrSlick = new AppGameContainer(new sideScrSlick());		
 		sideScrSlick.setDisplayMode(c.WINDOW_X, c.WINDOW_Y, false);
-		sideScrSlick.setShowFPS(true);
+		sideScrSlick.setShowFPS(false);
 		sideScrSlick.setTargetFrameRate(60);
 		sideScrSlick.start();
 	}
