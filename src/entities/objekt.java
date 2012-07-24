@@ -45,22 +45,17 @@ public class objekt {
 	}
 
 	public void setX(float x){
-		if(this instanceof mob || this instanceof player){
-			if(x < getX()){
-				if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_LEFT)){
-					this.x = getX();
-				}
-				else{
-					this.x = x;
-				}
+		if(x < getX()){
+			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_LEFT)){
+				this.x = getX();
 			}
-			else if(x > getX()){
-				if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_RIGHT)){
-					this.x = getX();;
-				}
-				else{
-					this.x = x;
-				}
+			else{
+				this.x = x;
+			}
+		}
+		else if(x > getX()){
+			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_RIGHT)){
+				this.x = getX();;
 			}
 			else{
 				this.x = x;
@@ -69,7 +64,6 @@ public class objekt {
 		else{
 			this.x = x;
 		}
-		this.x = x;
 	}
 	
 	public float getX(){
