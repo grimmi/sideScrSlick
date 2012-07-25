@@ -17,6 +17,7 @@ import util.control;
 
 import entities.block;
 import entities.mob;
+import entities.objekt;
 import entities.player;
 import entities.environment;
 
@@ -85,16 +86,21 @@ public class GameplayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		p.doYourThing(gc,gameplayEnvironment);
 		gameplayEnvironment.doYourThing(gc);
-		if((System.currentTimeMillis() - lastKITick) > 10){
-			lastKITick = System.currentTimeMillis();
-			double t = Math.random();
-			if(t > 0.5 || neuMob.getEnvironmentCollisionList(gameplayEnvironment).contains(co.COLLISION_LEFT)){
-				neuMob.removeDir(co.DIR_LEFT);
-				neuMob.setDir(co.DIR_RIGHT);
-			}
-			else if(t <= 0.5f || neuMob.getEnvironmentCollisionList(gameplayEnvironment).contains(co.COLLISION_RIGHT)){
-				neuMob.removeDir(co.DIR_RIGHT);
-				neuMob.setDir(co.DIR_LEFT);
+		if((System.currentTimeMillis() - lastKITick) > 300){
+			for(objekt a : gameplayEnvironment.getEnvironment()){
+				lastKITick = System.currentTimeMillis();
+				if(a instanceof mob && !(a instanceof player)){
+					mob m = (mob)a;
+					double t = Math.random();
+					if(t > 0.5 || m.getEnvironmentCollisionList(gameplayEnvironment).contains(co.COLLISION_LEFT)){
+						m.removeDir(co.DIR_LEFT);
+						m.setDir(co.DIR_RIGHT);
+					}
+					else if(t <= 0.5f || m.getEnvironmentCollisionList(gameplayEnvironment).contains(co.COLLISION_RIGHT)){
+						m.removeDir(co.DIR_RIGHT);
+						m.setDir(co.DIR_LEFT);
+					}
+				}
 			}
 		}
 	}
