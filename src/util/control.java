@@ -7,7 +7,7 @@ import entities.mob;
 
 public class control {
 	
-	public void mobControl(GameContainer gc, mob m){
+	public void playerControl(GameContainer gc, mob m){
 		Input in = gc.getInput();
 		if(in.isKeyDown(co.MOVE_LEFT)){
 			m.setDir(co.DIR_LEFT);
@@ -21,7 +21,7 @@ public class control {
 		else{
 			m.removeDir(co.DIR_RIGHT);
 		}
-		/*
+		/* IM AUGENBLICK NUR BEWEGUNG NACH RECHTS UND LINKS
 		if(in.isKeyDown(co.MOVE_UP)){
 			m.setDir(co.DIR_UP);
 		}

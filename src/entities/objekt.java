@@ -7,6 +7,7 @@ import logic.Collision;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 import util.co;
 import util.images;
@@ -27,13 +28,21 @@ public class objekt {
 	
 	private environment env;
 	
-	public objekt(environment u){
+	public objekt(environment u) throws SlickException{
 		x = 0;
 		y = 0;
 		setRenderX(0);
 		setRenderY(0);
 		setLastCollision(System.currentTimeMillis());
 		setEnvironment(u);
+		i = new images();
+		setImage(i.blueBlock);
+	}
+	
+	public objekt(float x, float y, environment u) throws SlickException{
+		this(u);
+		setX(x);
+		setY(y);
 	}
 	
 	private void setLastCollision(long newTime) {
@@ -182,38 +191,40 @@ public class objekt {
 	}
 	
 	public ArrayList<String> intersects(objekt o){
-		float s = 0f;
-		if(this instanceof mob){
-			mob t = (mob)this;
-			s = t.getSpeed();
-		}
-		float x = getX();
-		float y = getY();
-		float w = getWidth();
-		float h = getHeight();
-		float xW = x+w;
-		float yH = y+h;
-		float oX = o.getX();
-		float oY = o.getY();
-		float oW = o.getWidth();
-		float oH = o.getHeight();
-		float oXW = oX+oW;
-		float oYH = oY+oH;
 		ArrayList<String> intersects = new ArrayList<String>();
-		
-		if((x < oX && xW+s > oX) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
-			intersects.add(co.COLLISION_RIGHT);
-		}
-		if((xW > oXW && x-s < oXW) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
-			intersects.add(co.COLLISION_LEFT);
-		}
-		
-		if((yH > oY-s && yH < oYH) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
-			intersects.add(co.COLLISION_DOWN);
-		}
-		
-		if((y < oYH+s && yH > oY) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
-			intersects.add(co.COLLISION_UP);
+		if(this != o){
+			float s = 0f;
+			if(this instanceof mob){
+				mob t = (mob)this;
+				s = t.getSpeed();
+			}
+			float x = getX();
+			float y = getY();
+			float w = getWidth();
+			float h = getHeight();
+			float xW = x+w;
+			float yH = y+h;
+			float oX = o.getX();
+			float oY = o.getY();
+			float oW = o.getWidth();
+			float oH = o.getHeight();
+			float oXW = oX+oW;
+			float oYH = oY+oH;
+			
+			if((x < oX && xW+s > oX) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
+				intersects.add(co.COLLISION_RIGHT);
+			}
+			if((xW > oXW && x-s < oXW) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
+				intersects.add(co.COLLISION_LEFT);
+			}
+			
+			if((yH > oY-s && yH < oYH) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
+				intersects.add(co.COLLISION_DOWN);
+			}
+			
+			if((y < oYH+s && yH > oY) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
+				intersects.add(co.COLLISION_UP);
+			}
 		}
 		return intersects;
 	}

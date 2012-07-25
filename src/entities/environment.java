@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class environment {
@@ -24,6 +25,14 @@ public class environment {
 		if(!objekte.isEmpty()){
 			for(int i = 0; i < objekte.size(); i++){
 				objekte.get(i).draw(g);
+			}
+		}
+	}
+	
+	public void doYourThing(GameContainer gc){
+		for(objekt o : getEnvironment()){
+			if(o instanceof mob){
+				((mob) o).doYourThing(gc, this);
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 
 import util.co;
 import util.control;
@@ -18,26 +19,27 @@ public class mob extends objekt {
 	private float jumpheight;
 	private float jumpSpeed;
 	private float maxJumpSpeed = 10f;
-	private boolean verticalAllowed;
-	private float baseLine = co.WINDOW_Y-100;
 	private float jumpDiff = 0.5f;
 	private control control;
 	
-	public mob(environment u){
+	public mob(environment u) throws SlickException{
 		super(u);
+		init();
+	}
+	
+	public mob(float x, float y, environment u) throws SlickException{
+		super(x,y,u);
+		init();
+	}
+	
+	public void init(){
 		dir = 0;
 		dirs = new ArrayList<Integer>();
-		speed = 0;
+		speed = 4f;
 		setMaxSpeed(100);
 		control = new control();
 	}
 	
-	
-	/*
-	 * 	  8	1 2
-	 * 	  7	0 3
-	 * 	  6 5 4	
-	 */		  
 	public void move(){
 		if(isJump()){
 			setY(getY()-getJumpSpeed());
@@ -45,17 +47,10 @@ public class mob extends objekt {
 			if(getJumpSpeed() == 0){
 				setJump(false);
 				setJumpSpeed(getMaxJumpSpeed());
-				//setFall(true);
 			}
 		}
 		if(!isJump()){
 			setY(getY()+getSpeed());
-			/*
-			setJumpSpeed(getJumpSpeed()-jumpDiff);
-			if(getJumpSpeed() == 0){
-				setFall(false);
-			}
-			*/
 		}
 		for(int aDir : dirs){
 			switch(aDir){
@@ -153,22 +148,6 @@ public class mob extends objekt {
 		this.jumpheight = jumpheight;
 	}
 	
-	public void forbidVertical(){
-		verticalAllowed = false;
-	}
-	
-	public void allowVertical(){
-		verticalAllowed = true;
-	}
-	
-	public boolean getVerticalAllowed(){
-		return verticalAllowed;
-	}
-	
-	public void setVerticalAllowed(boolean allowed){
-		verticalAllowed = allowed;
-	}
-	
 	public void setJumpSpeed(float js){
 		if(js > 0){
 			jumpSpeed = js;
@@ -181,11 +160,6 @@ public class mob extends objekt {
 	public float getJumpSpeed(){
 		return jumpSpeed;
 	}
-	
-	public void checkCollision(environment u){
-		// umgebungskollisionen
-	}
-
 
 	public float getMaxJumpSpeed() {
 		return maxJumpSpeed;
@@ -218,7 +192,9 @@ public class mob extends objekt {
 	
 	public void doYourThing(GameContainer gc, environment env){
 		getEnvironmentCollisionList(env);
-		getControl().mobControl(gc, this);
+		if(this instanceof player){
+			getControl().playerControl(gc, this);
+		}
 		move();
 	}
 }
