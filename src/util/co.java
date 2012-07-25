@@ -33,4 +33,5 @@ public class co {
 	public static String COLLISION_DOWN = "down";
 	public static String COLLISION_LEFT = "left";
 	public static String COLLISION_RIGHT = "right";
+	public static String COLLISION_NOCOLLISION = "none";
 }

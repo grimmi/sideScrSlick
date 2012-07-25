@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import util.co;
 import util.debug;
 import util.images;
-import util.keyboard;
+import util.control;
 
 import entities.block;
 import entities.player;
@@ -35,6 +35,8 @@ public class GameplayState extends BasicGameState {
 	
 	player p;
 	
+	private control control;
+	
 	public GameplayState(int id) {
 		gameStateID = id;
 	}
@@ -47,7 +49,7 @@ public class GameplayState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		reset(gc);
 		p.setImage(i.blueBlock);
-		p.setSpeed(10f);
+		p.setSpeed(5f);
 		float bW = i.blueBlock.getWidth();
 		float bH = i.blueBlock.getHeight();
 		float gW = 0f;
@@ -60,6 +62,7 @@ public class GameplayState extends BasicGameState {
 		}
 		*/
 		gameplayEnvironment.addObjekt(new block(p.getX()+200,p.getY()));
+		gameplayEnvironment.addObjekt(new block(p.getX()+300,p.getY()-300));
 	}
 
 	@Override
@@ -71,25 +74,7 @@ public class GameplayState extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		steuerung(gc);
-		p.move();
-		p.getEnvironmentCollisionList(gameplayEnvironment);
-	}
-	
-	public void steuerung(GameContainer gc){
-		if(in.isKeyPressed(co.MOVE_LEFT)){
-			p.setDir(co.DIR_LEFT);
-		}
-		if(in.isKeyPressed(co.MOVE_RIGHT)){
-			p.setDir(co.DIR_RIGHT);
-		}
-		if(in.isKeyPressed(co.MOVE_JUMP)){
-			p.jump();
-		}
-		if(!in.isKeyDown(co.MOVE_LEFT) && !in.isKeyDown(co.MOVE_RIGHT)){
-			p.setDir(co.DIR_NODIR);
-		}
-		
+		p.doYourThing(gc,gameplayEnvironment);		
 	}
 	
 	public void reset(GameContainer gc) throws SlickException{

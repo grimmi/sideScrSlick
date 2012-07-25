@@ -52,8 +52,7 @@ public class debug {
 		*/
 		for(int i = 0; i < p.getEnvironmentCollisionList(u).size(); i++){
 			f.cNew.drawString(0, 20*i, p.getEnvironmentCollisionList(u).get(i));
-		}
-		
+		}		
 	}
 
 }

@@ -45,8 +45,9 @@ public class objekt {
 	}
 
 	public void setX(float x){
+		ArrayList<String> collisions = new ArrayList<String>(getEnvironmentCollisionList(getEnvironment()));
 		if(x < getX()){
-			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_LEFT)){
+			if(collisions.contains(co.COLLISION_LEFT)){
 				this.x = getX();
 			}
 			else{
@@ -54,8 +55,8 @@ public class objekt {
 			}
 		}
 		else if(x > getX()){
-			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_RIGHT)){
-				this.x = getX();;
+			if(collisions.contains(co.COLLISION_RIGHT)){
+				this.x = getX();
 			}
 			else{
 				this.x = x;
@@ -71,8 +72,9 @@ public class objekt {
 	}
 	
 	public void setY(float y){
+		ArrayList<String> collisions = new ArrayList<String>(getEnvironmentCollisionList(getEnvironment()));
 		if(y < getY()){
-			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_UP)){
+			if(collisions.contains(co.COLLISION_UP)){
 				this.y = getY();
 			}
 			else{
@@ -80,7 +82,7 @@ public class objekt {
 			}
 		}
 		else if(y > getY()){
-			if(getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_DOWN)){
+			if(collisions.contains(co.COLLISION_DOWN)){
 				this.y = getY();
 			}
 			else{
@@ -177,6 +179,43 @@ public class objekt {
 	
 	public void setEnvironment(environment u){
 		env = u;
+	}
+	
+	public ArrayList<String> intersects(objekt o){
+		float s = 0f;
+		if(this instanceof mob){
+			mob t = (mob)this;
+			s = t.getSpeed();
+		}
+		float x = getX();
+		float y = getY();
+		float w = getWidth();
+		float h = getHeight();
+		float xW = x+w;
+		float yH = y+h;
+		float oX = o.getX();
+		float oY = o.getY();
+		float oW = o.getWidth();
+		float oH = o.getHeight();
+		float oXW = oX+oW;
+		float oYH = oY+oH;
+		ArrayList<String> intersects = new ArrayList<String>();
+		
+		if((x < oX && xW+s > oX) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
+			intersects.add(co.COLLISION_RIGHT);
+		}
+		if((xW > oXW && x-s < oXW) && (((y > oY && y < oYH) || (yH > oY && yH < oYH)) || (y == oY && yH == oYH))){
+			intersects.add(co.COLLISION_LEFT);
+		}
+		
+		if((yH > oY-s && yH < oYH) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
+			intersects.add(co.COLLISION_DOWN);
+		}
+		
+		if((y < oYH+s && yH > oY) && (((x < oXW && x > oX) || (xW < oXW && xW > oX)) || (x == oX && xW == oXW))){
+			intersects.add(co.COLLISION_UP);
+		}
+		return intersects;
 	}
 	
 }

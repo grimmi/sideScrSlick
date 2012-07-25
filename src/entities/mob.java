@@ -1,11 +1,16 @@
 package entities;
 
+import java.util.ArrayList;
+
+import org.newdawn.slick.GameContainer;
+
 import util.co;
+import util.control;
 
 
 public class mob extends objekt {
 	private int dir;
-	private int[] allowedDirs;
+	private ArrayList<Integer> dirs;
 	private float speed;
 	private float maxSpeed;
 	private boolean jump;
@@ -16,13 +21,15 @@ public class mob extends objekt {
 	private boolean verticalAllowed;
 	private float baseLine = co.WINDOW_Y-100;
 	private float jumpDiff = 0.5f;
+	private control control;
 	
 	public mob(environment u){
 		super(u);
 		dir = 0;
-		setAllowedDirs(new int[8]);
+		dirs = new ArrayList<Integer>();
 		speed = 0;
 		setMaxSpeed(100);
+		control = new control();
 	}
 	
 	
@@ -41,55 +48,63 @@ public class mob extends objekt {
 				setFall(true);
 			}
 		}
-		if(isFall()){
+		if(!isJump()){
 			setY(getY()+getJumpSpeed());
 			setJumpSpeed(getJumpSpeed()-jumpDiff);
 			if(getJumpSpeed() == 0){
 				setFall(false);
 			}
 		}
-		switch(getDir()){
-			case 1: setY(getY()-speed);
-					setX(getX());
-					break;
-			case 2: setY(getY()-(speed/2));
-					setX(getX()+(speed/2));
-					break;
-			case 3: setY(getY());
-					setX(getX()+speed);
-					break;
-			case 4: setY(getY()+(speed/2));
-					setX(getX()+(speed/2));
-					break;
-			case 5: setY(getY()+speed);
-					setX(getX());
-					break;
-			case 6:	setY(getY()+(speed/2));
-					setX(getX()-(speed/2));
-					break;
-			case 7: setY(getY());
-					setX(getX()-speed);
-					break;
-			case 8: setY(getY()-(speed/2));
-					setX(getX()-(speed/2));
-					break;
-			case 0: //setY(getY());
-					//setX(getX());
-					break;
+		for(int aDir : dirs){
+			switch(aDir){
+				case 1: setY(getY()-speed);
+						setX(getX());
+						break;
+				case 2: setY(getY()-(speed/2));
+						setX(getX()+(speed/2));
+						break;
+				case 3: setY(getY());
+						setX(getX()+speed);
+						break;
+				case 4: setY(getY()+(speed/2));
+						setX(getX()+(speed/2));
+						break;
+				case 5: setY(getY()+speed);
+						setX(getX());
+						break;
+				case 6:	setY(getY()+(speed/2));
+						setX(getX()-(speed/2));
+						break;
+				case 7: setY(getY());
+						setX(getX()-speed);
+						break;
+				case 8: setY(getY()-(speed/2));
+						setX(getX()-(speed/2));
+						break;
+				case 0: //setY(getY());
+						//setX(getX());
+						break;
+			}
 		}
 	}
 	
 	public void setDir(int d){
-		if(d > -1 && d < 9){
-			dir = d;
+		if(!dirs.contains(d)){
+			dirs.add(d);
 		}
-		else{
-			//throw new IllegalDirException();
+		if(d == 0){
+			dirs.clear();
 		}
 	}
 	
 	public int getDir(){
 		return dir;
+	}
+	
+	public void removeDir(int d){
+		if(dirs.contains((Integer)d)){	// cast to Integer to differentiate between index and object
+			dirs.remove((Integer)d);
+		}
 	}
 	
 	public void setSpeed(float s){
@@ -106,17 +121,6 @@ public class mob extends objekt {
 			setJumpSpeed(getMaxJumpSpeed());
 		}
 	}
-
-
-	public int[] getAllowedDirs() {
-		return allowedDirs;
-	}
-
-
-	public void setAllowedDirs(int[] allowedDirs) {
-		this.allowedDirs = allowedDirs;
-	}
-
 
 	public float getMaxSpeed() {
 		return maxSpeed;
@@ -199,5 +203,20 @@ public class mob extends objekt {
 	public void setFall(boolean fall) {
 		this.fall = fall;
 	}
+
+
+	public control getControl() {
+		return control;
+	}
+
+
+	public void setControl(control control) {
+		this.control = control;
+	}
 	
+	public void doYourThing(GameContainer gc, environment env){
+		getEnvironmentCollisionList(env);
+		getControl().mobControl(gc, this);
+		move();
+	}
 }
