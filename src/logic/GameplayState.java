@@ -54,13 +54,11 @@ public class GameplayState extends BasicGameState {
 		float bH = i.blueBlock.getHeight();
 		float gW = 0f;
 		int a = 0;
-		/*
 		while(gW < c.WINDOW_X){
 			gameplayEnvironment.addObjekt(new block((bW*a),c.WINDOW_Y-(bH+0)));
 			a++;
 			gW += bW;
 		}
-		*/
 		gameplayEnvironment.addObjekt(new block(p.getX()+200,p.getY()));
 		gameplayEnvironment.addObjekt(new block(p.getX()+300,p.getY()-300));
 	}

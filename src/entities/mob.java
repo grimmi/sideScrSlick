@@ -17,7 +17,7 @@ public class mob extends objekt {
 	private boolean fall;
 	private float jumpheight;
 	private float jumpSpeed;
-	private float maxJumpSpeed = 10;
+	private float maxJumpSpeed = 10f;
 	private boolean verticalAllowed;
 	private float baseLine = co.WINDOW_Y-100;
 	private float jumpDiff = 0.5f;
@@ -45,15 +45,17 @@ public class mob extends objekt {
 			if(getJumpSpeed() == 0){
 				setJump(false);
 				setJumpSpeed(getMaxJumpSpeed());
-				setFall(true);
+				//setFall(true);
 			}
 		}
 		if(!isJump()){
-			setY(getY()+getJumpSpeed());
+			setY(getY()+getSpeed());
+			/*
 			setJumpSpeed(getJumpSpeed()-jumpDiff);
 			if(getJumpSpeed() == 0){
 				setFall(false);
 			}
+			*/
 		}
 		for(int aDir : dirs){
 			switch(aDir){
@@ -116,7 +118,7 @@ public class mob extends objekt {
 	}
 	
 	public void jump(){
-		if(!isJump() && !isFall()){
+		if(!isJump() && !isFall() && getEnvironmentCollisionList(getEnvironment()).contains(co.COLLISION_DOWN)){
 			setJump(true);
 			setJumpSpeed(getMaxJumpSpeed());
 		}

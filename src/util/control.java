@@ -21,6 +21,7 @@ public class control {
 		else{
 			m.removeDir(co.DIR_RIGHT);
 		}
+		/*
 		if(in.isKeyDown(co.MOVE_UP)){
 			m.setDir(co.DIR_UP);
 		}
@@ -33,6 +34,7 @@ public class control {
 		else{
 			m.removeDir(co.DIR_DOWN);
 		}
+		*/
 		if(in.isKeyDown(co.MOVE_JUMP)){
 			m.jump();
 		}
